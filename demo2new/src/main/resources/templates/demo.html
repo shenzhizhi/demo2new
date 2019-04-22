@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js">
+    </script>
+</head>
+
+
+<script>
+    function ceshi() {
+        $.ajax({
+            type: "POST",
+            url: "http://localhost:8080/user/getName",
+            dataType: "json",
+            data: {
+                "userId": "23",
+                "username": "shenzhi"
+            },
+            success: success,
+            error: error
+        });
+
+        function success(data) {
+            // 插入前清空子元素
+            $('.tr1').remove();
+            $.each(data, bianli);
+        }
+
+        function bianli(index, item) {
+            // alert(index+" "+item.name+" "+item.age);
+            // append是在父级最后追加一个子元素
+            $('.table').append(
+                "<tr class='tr1'>" +
+                "<td>" + item.id + "</td>" +
+                "<td>" + item.userName + "</td>" +
+                "<td>" + item.passWord + "</td>" +
+                "<td>" + item.realName + "</td>" +
+                "</tr>");
+        }
+
+        function error(data) {
+            if (data.resultCode !== 200) {
+                alert('失败');
+            }
+        }
+    }
+
+    
+    function gengxin() {
+
+        var data={"id":$('#u-id').val(),"userName":$('#u-userName').val(),"passWord":$('#u-passWord').val(),"realName":$('#realName').val()};
+        $.ajax({
+            type:"post",
+            url:"http://localhost:8080/user/updateUser",
+            dataType:"text",
+            contentType:"application/json;charset=utf-8",
+            data:JSON.stringify(data),
+
+            success:function (data) {
+                alert(data);
+                window.location.href='http://localhost:8080/user/demo'
+            },
+            error:function (data) {
+                alert("失败");
+            }
+
+        })
+    }
+</script>
+<body>
+
+
+
+<div class="container">
+    <form action="http://localhost:8080/user/setUser" class="form-horizontal">
+        <div class="form-group">
+            <label for="userName" class="col-sm-2 control-label">姓名：</label>
+            <div class="col-sm-3">
+                <input class="form-control" type="text" id="userName" name="userName">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="passWord" class="col-sm-2 control-label">密码：</label>
+            <div class="col-sm-3">
+                <input class="form-control" type="password" id="passWord" name="passWord">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="realName" class="col-sm-2 control-label">真名：</label>
+            <div class="col-sm-3">
+                <input class="form-control" type="text" id="realName" name="realName">
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-1">
+                <input type="submit" value="插入" class="form-control">
+            </div>
+        </div>
+
+    </form>
+</div>
+
+<div class="container">
+    <form action="http://localhost:8080/user/updateUser" class="form-horizontal">
+        <div class="form-group">
+            <label class="col-sm-2" for="u-id">更新人的id</label>
+            <div class="col-sm-3">
+                <input id="u-id" type="text" class="form-control">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2" for="u-userName">更新人的姓名</label>
+            <div class="col-sm-3">
+                <input id="u-userName" type="text" class="form-control">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2" for="u-passWord">更新人的密码：</label>
+            <div class="col-sm-3">
+                <input id="u-passWord" type="text" class="form-control">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2" for="u-realName">更新人的真实姓名：</label>
+            <div class="col-sm-3">
+                <input id="u-realName" type="text" class="form-control">
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-1">
+                <input  type="submit" class="form-control" onclick="gengxin()">
+            </div>
+        </div>
+    </form>
+</div>
+
+<div class="container ">
+    <form action="http://localhost:8080/user/deleteUserById" class="form-horizontal ">
+        <div class="form-group">
+            <label for="userId" class="col-sm-2 control-label">需要删除数据的id：</label>
+            <div class="col-sm-3 ">
+                <input class="form-control" type="text" id="userId" name="userId">
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-1">
+                <input type="submit" value="删除" class="form-control" onclick="ceshi()">
+            </div>
+        </div>
+    </form>
+</div>
+<div class="col-sm-1">
+    <input name="tijiao" class="form-control" type="submit" value="提交" id="tijiao" onclick="ceshi()">
+</div>
+<table class="table table-striped">
+    <thead class="thead1">
+    <tr>
+        <td>id</td>
+        <td>姓名</td>
+        <td>密码</td>
+        <td>真名</td>
+    </tr>
+    </thead>
+</table>
+
+</body>
+
+
+<!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js"
+        integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+        crossorigin="anonymous"></script>
+</html>

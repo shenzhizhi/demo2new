@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.mapper.UserMapper">
+
+    <resultMap id="getUserMap" type="com.example.pojo.User">
+        <result column="id" jdbcType="INTEGER" property="id"/>
+        <result column="userName" jdbcType="VARCHAR" property="userName"/>
+        <result column="passWord" jdbcType="VARCHAR" property="passWord"/>
+        <result column="realName" jdbcType="VARCHAR" property="realName"/>
+
+    </resultMap>
+    <select id="getUserById" resultMap="getUserMap">
+        select * from user where id = #{id}
+    </select>
+
+    <select id="getUser" resultMap="getUserMap">
+        select * from user
+        <where>
+            <if test="userName!=null">
+                and userName='123'
+            </if>
+        </where>
+    </select>
+    
+    <delete id="deleteUserById">
+        delete from user where id=#{id}
+    </delete>
+
+    <update id="updateUser">
+        update user set userName=#{userName},passWord=#{passWord},realName=#{realName} where id=#{id}
+    </update>
+    
+    <insert id="setUser" parameterType="com.example.pojo.User">
+        insert into user (userName,passWord,realName) VALUES (#{userName},#{passWord},#{realName})
+    </insert>
+
+    <select id="getUserByPage"  resultMap="getUserMap">
+        select * from user  limit #{arg0} ,#{arg1}
+    </select>
+
+    <select id="getUserByAny" resultMap="getUserMap">
+        select * from user
+        <where>
+            <if test="user.userName!=null">
+                and userName=#{user.userName}
+            </if>
+            <if test="arg1!=null">
+                and id=#{arg1}
+            </if>
+        </where>
+    </select>
+
+    <update id="setUserByAny" parameterType="com.example.pojo.User" >
+      update user set userName=#{user.userName} where id=#{arg1}
+    </update>
+</mapper>
