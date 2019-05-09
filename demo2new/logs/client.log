@@ -44,3 +44,5 @@
 2019-04-17 17:23:50,584 com.example.filter.MyFilterConfig [http-nio-8080-exec-1] (MyFilterConfig.java:24) INFO  --> asdasdasd
 2019-04-17 17:23:50,584 com.example.Utils.HttpRequestAspect [http-nio-8080-exec-1] (HttpRequestAspect.java:33) INFO  --> 进入前置方法
 2019-04-17 17:24:27,637 com.example.filter.MyFilterConfig [http-nio-8080-exec-2] (MyFilterConfig.java:24) INFO  --> asdasdasd
+2019-05-06 18:03:09,437 com.example.filter.MyFilterConfig [http-nio-8080-exec-1] (MyFilterConfig.java:24) INFO  --> asdasdasd
+2019-05-07 14:07:12,618 com.example.filter.MyFilterConfig [http-nio-8080-exec-1] (MyFilterConfig.java:24) INFO  --> asdasdasd

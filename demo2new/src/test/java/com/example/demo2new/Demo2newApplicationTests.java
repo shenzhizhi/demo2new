@@ -19,10 +19,10 @@ public class Demo2newApplicationTests {
 
 	@Test
 	public void contextLoads() {
-	   /* ArrayList<User> arrayList=userService.getUserByPage(0,3);
+	    ArrayList<User> arrayList=userService.getUserByPage(0,3);
 	    for(User uu :arrayList){
             System.out.println(uu.toString());
-        }*/
+        }
 
 	   /*User user=new User();
 	   user.setUserName("神芝芝");
